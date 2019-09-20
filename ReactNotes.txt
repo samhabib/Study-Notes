@@ -158,18 +158,57 @@ When you edit a JSX element, every single Virtual DOM object gets updated, but s
 
 
 
+Day 3 :
+
+JSX Gotchas (Some)
+-------------------------
+
+While grammar in JSX is very similar to that of HTML, there are some small differences to watch for, for example in HTML its common to use "class" as the name of an attribute but since "class" is a reserved word in Javascript we have to use "className" in JSX. Any JSX attributes with the name "className" will be automatically rendered into "class" attributes at render time.
+
+Divs rendered with the class attribute of "big" will be rendered largely in the browser.
+
+Another issue that can trip people up when using JSX is the difference in self-closing tag usage between HTML and JSX. In HTML most elements require you to have an open tag and a closing tag like: 
+
+EX.
+<div></div> 
+
+However some elements such as <img> <br> or <input> don't require a closing tag because they are what is known as self-closing tags. When you write self-closing tags in HTML you can however put in a closing slash if you want it is not mandatory, like this:
+
+EX.
+<img />
+
+While it is not mandatory in HTML, it IS MANDATORY in JSX to include the slash, if you do not write the slash in JSX an error will be thrown.
 
 
 
+Writing Javascript in JSX...... In a Javascript file
+-------------------------
+
+Sometimes, it is useful to be able to access Javascript functionality within our JSX elements. For example, say we wanted to do addition within our element like this:
+
+EX.
+ReactDOM.render(<h1>2 + 3</h1>, document.getElementById('app'));
+
+Unfortunately if we were to render this it would only produce a large "2 + 3" instead of the calculated value of 5 that we want! How do we remedy this? Well JSX was aware of this and designated the curly bracers {} to be able to switch you to Javascript functionality so to make the previous example we would make it look like this:
+
+EX.
+ReactDOM.render(<h1>{2 + 3}</h1>, document.getElementById('app'));
+
+Now when it renders, it will display one large "5" instead of the "2 + 3" that we dislike. The curly bracers aren't treated as JSX or as Javascript, they are used as markers that signal the beginning and end of a Javascript injection into JSX similar to the quotation marks that mark the boundaries of a string "".
+
+We do not write the {} around the variable that stores a JSX expression, we write it in the JSX expression itself that is being stored in the variable:
+
+EX.1 GOOD
+const math = <h1>{Math.PI.toFixed(20)}</h1>;   (shows the first 20 digits of pi)
+
+ReactDOM.render(math,document.getElementById('app'))
 
 
+EX.2 BAD
+const math = <h1>Math.PI.toFixed(20)</h1>;
 
 
-
-
-
-
-
+ReactDOM.render({math},document.getElementById('app'))
 
 
 
