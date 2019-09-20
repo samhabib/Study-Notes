@@ -64,3 +64,121 @@ const paragraphs = (
 );
 
 The first opening tag and final closing tag must belong to the same JSX element. A simple solution to fix an expression with multiple outer elements is to wrap the expression in a <div></div>
+
+
+Day 2 :
+
+What is the DOM?
+-------------------------
+
+When a web page is loaded, the browser creates a Document Object Model of the page. The HTML DOM is constructed as a tree of Objects with the head of the tree being Document. This connects to the Root element (the <html> element) and then it branches out to all of the sub elements from the root element like the <head> and the <body> elements.
+
+
+With the object model, JavaScript gets all the power it needs to create dynamic HTML:
+
+	1. JavaScript can change all the HTML elements in the page
+	2. JavaScript can change all the HTML attributes in the page
+	3. JavaScript can change all the CSS styles in the page
+	4. JavaScript can remove existing HTML elements and attributes
+	5. JavaScript can add new HTML elements and attributes
+	6. JavaScript can react to all existing HTML events in the page
+	7. JavaScript can create new HTML events in the page
+
+
+The DOM is a W3C (World Wide Web Consortium) standard of practice, where the DOM defines the practice for accessing documents. Using a standardized format like the DOM allows us to create programs and scripts that can dynamically access and update the content, structure, and style of a document.
+
+The W3C DOM can be split into 3 different pieces: 
+
+	1. Core DOM - standard model for all document types
+	2. XML DOM - standard model for XML documents
+	3. HTML DOM - standard model for HTML documents
+
+So when we want to change HTML documents we focus on the HTML DOM, likewise with XML documents, etc.
+
+
+What is ReactDom?
+-------------------------
+
+ReactDOM is the name of a JavaScript library that contains React-specific methods that can affect the DOM in multiple ways. We will slowly learn a bunch of the useful methods that ReactDOM contains but lets start with 1 at a time.
+
+"ReactDOM.render()" is the most common way to render JSX. The method goes and converts a JSX expression into a corresponding tree of DOM nodes and adds that tree to the DOM, which allows for a JSX expression to appear onscreen.
+
+When using the .render() method, the first element you pass in should be a JSX element For example,
+
+EX. 
+ReactDOM.render(<h1>Hello world</h1>, document.getElementById('app')); - Would work
+
+ReactDOM.render(document.getElementById('app'), <h1>Hello world</h1>); - Would not work
+
+In the .render() method, the first element is appended to whatever element is selected by the second argument. document.getElementById('app); goes and searches the document for an element with the attribute id="app" and will go and attach itself to it as a nested element. So for example if it looked like this it would become this
+
+EX.
+<main id = "app"></main>
+	|
+	|
+	|
+	V
+<main id = "app">
+	<h1>Render me!</h1>
+</main>
+
+
+The first element in a .render() call can also be a variable if that variable evaluates to a JSX expression like this :
+
+EX.
+const myList = (
+  <ul>
+  	<li>Eat</li>
+    <li>My</li>
+    <li>Shorts</li>
+  </ul>
+);
+
+ReactDOM.render(myList, document.getElementById('app'));
+
+Something special about the ReactDom.render() method is that it will only re-render if the object being passed to it has changed since the last time you called the render method so for example:
+
+EX.
+const test = <h1>Dont Change</h1>;
+
+ReactDOM.render(test,document.getElementById('app');
+
+ReactDOM.render(test,document.getElementById('app');
+
+Will only render the scene once, this makes React special because its able to accomplish this by utilizing a tool called the "Virtual DOM".
+
+
+What is the Virtual DOM?
+-------------------------
+
+ In React, for every DOM object there is a corresponding Virtual DOM object, which represents the DOM object as sort of a lightweight copy of it. A Virtual DOM object has all of the same properties as a real DOM object but it lacks any ability to affect any of the things on the screen. 
+This makes manipulating the virtual DOM much faster because it doesn't have to change anything on the screen actually and this is useful because manipulating the regular DOM is slow.
+
+When you edit a JSX element, every single Virtual DOM object gets updated, but since these are the lightweight versions of the DOM instead of regular DOM objects its still much more efficient than the regular way of updating the DOM. Once the Virtual DOM elements are all recalculated, they are compared with a SNAPSHOT of the Virtual DOM from before the change, and any elements that are different are marked. This process is called "Diffing". Once the Diffing is finished, React only updates the DOM objects that were marked as changed in the Virtual DOM, this is where a large amount of Reacts innovation lies.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
