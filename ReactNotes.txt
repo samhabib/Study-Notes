@@ -207,11 +207,15 @@ ReactDOM.render(math,document.getElementById('app'))
 EX.2 BAD
 const math = <h1>Math.PI.toFixed(20)</h1>;
 
-
 ReactDOM.render({math},document.getElementById('app'))
 
 
+You can however access a Javascript variable in a JSX element by wrapping {} curly around the variable in the JSX element.
 
+EX.
+const theBestString = 'tralalalala i am da best';
+
+ReactDOM.render(<h1>{theBestString}</h1>, document.getElementById('app'));
 
 
 
