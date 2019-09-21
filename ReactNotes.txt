@@ -218,6 +218,84 @@ const theBestString = 'tralalalala i am da best';
 ReactDOM.render(<h1>{theBestString}</h1>, document.getElementById('app'));
 
 
+Attributes can also use Javascript the same way elements do with the curly brackets but there is even more you can do. If you have an javascript object variable with a lot of properties, you can use them to set multiple different JSX attribute values easily. For Example :
+
+const pics = {
+  panda: "http://bit.ly/1Tqltv5",
+  owl: "http://bit.ly/1XGtkM3",
+  owlCat: "http://bit.ly/1Upbczi"
+}; 
+
+const panda = (
+  <img 
+    src={pics.panda} 
+    alt="Lazy Panda" />
+);
+
+const owl = (
+  <img 
+    src={pics.owl} 
+    alt="Unimpressed Owl" />
+);
+
+const owlCat = (
+  <img 
+    src={pics.owlCat} 
+    alt="Ghastly Abomination" />
+); 
+
+
+OR
+
+const sideLength = "200px";
+
+const panda = (
+  <img 
+    src="images/panda.jpg" 
+    alt="panda" 
+    height={sideLength} 
+    width={sideLength} />
+); 
+
+
+
+Event Listeners in JSX
+-------------------------
+
+JSX elements can have event listeners just like HTML elements can. To create an event listener you have to give a JSX element a special attribute like:
+
+EX.
+<img onClick={myFunction} />
+
+Event listeners attributes names are usually some variation of "on" like "onClick" or "onMouseOver". A full list of valid event listeners (there are a lot) can be found here https://reactjs.org/docs/events.html#supported-events .
+
+With event listener attributes, their values should be a function. The above example would only work if we established a function named "myFunction" defined elsewhere in the file. Like this:
+
+EX.
+function myFunc() {
+  alert('Make myFunc the pFunc... omg that was horrible i am so sorry');
+}
+
+<img onClick={myFunc} />
+
+
+Note that in HTML, event listener names are written in all lowercase, such as onclick or onmouseover. In JSX, event listener names are written in camelCase, such as onClick or onMouseOver. You can use Event Listeners for a lot of things like switch attribute values like this file that will change the photo of a picture of a cat to a picture of a dog on clicking the photo:
+
+EX.
+function makeDoggy(e) {
+  e.target.setAttribute('src', 'https://s3.amazonaws.com/codecademy-content/courses/React/react_photo-puppy.jpeg');
+  e.target.setAttribute('alt', 'doggy');
+}
+
+const kitty = (
+	<img
+	src="https://s3.amazonaws.com/codecademy-content/courses/React/react_photo-kitty.jpg" 
+	alt="kitty" 
+	onClick = {makeDoggy}/>
+);
+
+ReactDOM.render(kitty, document.getElementById('app'))
+
 
 
 
