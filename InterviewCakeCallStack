@@ -1,0 +1,110 @@
+INTERVIEW CAKE CALL STACK
+———————————————
+- The Call Stack is what a program uses to keep track of method calls, the call stack is made up of stack framed (one for each method call)
+
+- For example, imagine we called a method that rolled two dice and printed the sum.
+
+	def roll_die( );
+		return random randint(1,6);
+
+	def roll_two_and_sum( ):
+		total = 0
+		total += roll_die( )
+		total += roll_die( )
+		print total
+
+	roll_two_and_sum( )
+
+
+- First our program would call rollTwoAndSum() which would enter the stack
+	1. rollTwoAndSum()
+
+- That function calls rollsDie() which gets put on top of the call stack
+	1. rollDie()
+	2. rollTwoAndSum()
+
+- Inside of rollDie(), we call random.randint()
+	1. random.randint()
+	2. rollDie()
+	3. rollTwoAndSum()
+
+- When random.randint() finishes we pop it off the call stack and return to this call stack
+	1. rollDie()
+	2. rollTwoAndSum()
+
+- Then when rollDie() finishes we pop it off the call stack and return to this call stack
+	1. rollTwoAndSum()
+
+- This process is repeated again for the second rollDie call and then once that finishes we call the print function
+	1. print()
+	2. rollTwoAndSum()
+
+
+
+
+- What is actually stored in a methods stack frame?? A stack frame usually stores:
+	1. Local Variables
+	2. Arguments passed into the method
+	3. Information about the callers stack frame
+	4. The return address - what the program should do after the function returns
+
+
+- Each method call creates it s own stack frame, which takes up space on the call stack, this is important because it can affect the space complexity of an algorithm especially when we use recursion.
+
+- For example, if we wanted to multiply all the numbers between 1 and n, we could use this recursive approach:
+
+public static int product1ToN(int n) {
+    // we assume n >= 1
+    return (n > 1) ? (n * product1ToN(n-1)) : 1;
+}
+
+- If we put n as 10 it the call stack would look like this:
+	
+	1. product1ToN()    n = 10
+
+
+	1. product1ToN()    n = 9
+	2. product1ToN()    n = 10
+
+
+	1. product1ToN()    n = 8
+	2. product1ToN()    n = 9
+	3. product1ToN()    n = 10
+
+So on until we got
+
+	1. product1ToN()    n = 1
+	2. product1ToN()    n = 2
+	3. product1ToN()    n = 3
+	4. product1ToN()    n = 4
+	5. product1ToN()    n = 5
+	6. product1ToN()    n = 6
+	7. product1ToN()    n = 7
+	8. product1ToN()    n = 8
+	9. product1ToN()    n = 9
+	10. product1ToN()    n = 10
+
+
+- The entire call stack will take up to O(n) space even though our method doesn’t create any data structures. If we did this problem iteratively then it would take a constant amount of space because we wouldn’t need to call any other functions
+
+  public static int product1ToN(int n) {
+    // we assume n >= 1
+
+    int result = 1;
+    for (int num = 1; num <= n; num++) {
+        result *= num;
+    }
+
+    return result;
+}
+
+
+- Even though the compiler or interpreter will manage the call stack for us, it is important to co insider the depth of a call stack when analyzing the space complexity of an algorithm
+
+- What happens if we run out of space? It's a stack overflow! In Java, you'll get a StackOverflowError.
+
+- If the very last thing a method does is call another method, then its stack frame might not be needed any more. The method could free up its stack frame before doing its final call, saving space.
+
+- This is called tail call optimization (TCO). If a recursive function is optimized with TCO, then it may not end up with a big call stack.
+
+- In general, most languages don't provide TCO. Scheme is one of the few languages that guarantee tail call optimization. Some Ruby, C, and Javascript implementations may do it. Python and Java decidedly don't.
