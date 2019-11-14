@@ -1,0 +1,155 @@
+INTERVIEW CAKE BIG O
+-----------------------
+- BIG O - How we talk about how long an algorithm takes to run. We express how the runtime grows relative to the input as it gets arbitrarily large. For big O we care most about the stuff that grows fastest as the input grows because everything else will get quickly eclipsed as "n" gets very large
+
+- Lets look at some examples:
+	
+1a. public static void printFirstItem(int[] items) {
+	System.out.println(items[0]);
+}
+
+1b.The above example will always have a O(1) runtime otherwise known as constant time relative to its input. The input array items could have a size of 1 million or 2 and it will always run at the same speed.
+
+2a. public static void printAllItems(int[] items) {
+	for(int item : items) {
+		System.out.println(item);
+	}
+}
+
+2b. The above example will have a O(n) runtime because depending on how large items is will directly 1 to 1 affect how long it takes to run the program.
+
+3a. public static void printAllPossibleOrderedPairs(int[] items){
+	for(int firstItem : items) {
+		for(int secondItem : items){
+		System.out.println(firstItem + ", " secondItem);
+		}
+	}
+}
+
+
+3b. The above example will have a O(n^2) runtime because we are nesting two loops of size n which means it will be n*n long otherwise known as a quadratic runtime.
+
+
+- With Big O notation we drop constants because as you scale towards an impossibly large number, the constants become meaningless at some point for example
+
+4a. public static void printAllItemsTwice(int[] items){
+	for(int item : items){
+		System.out.println(item);
+	}
+	
+	for(int item : items){
+		System.out.println(item);
+	}
+
+}
+
+4b. Since the size of the input n will cause to run operations that are 2*n you might want to say it has a runtime of O(2n) but if n was impossibly huge, then the times two multiplier really wouldn't matter in the grand scheme of things so we drop the constant and say this is O(n) instead.
+
+
+5a. public static void printFirstItemThenFirstHalfThenSayHi100Times(int[] items){
+	System.out.println(items[0]);
+
+	int middleIndex = items.length / 2;
+	int index = 0;
+
+	while (index < middleIndex) {
+	System.out.println(items[index]);
+	index++;
+	}
+
+	for(int i=0; i<100; i++){
+		System.out.println("hi");
+	}
+}
+
+5b. This process would come out to O(1 + n/2 + 100), but since the 1 and 100 dont scale we drop them, and we can treat the n/2 as n*(1/2) and we dont care about constants so the final answer is still O(n)
+
+- Not only do we drop constants, we will also drop the less significant terms as well if they don't scale as well as the highest scaling variable
+
+6a. public static void printAllNumbersThenAllPairSums(int[] numbers){
+	
+	for(int number : numbers){
+		System.out.println(number);
+	}
+
+	for(int firstNumber: numbers){
+		for(int secondNumber : numbers){
+			System.out.println(firstNumber + secondNumber);
+		}
+	}
+}
+
+6b. The above example would come out to O(n + n^2) but since the n doesnt grow nearly the same rate as the n^2 we drop the n and this becomes O(n^2), even if it was O(999n + n^2) we would still turn it to O(n^2) because the 999 constant doesnt scale unlike the n^2.
+
+
+- Some more examples would be:
+	1. O(n^3 + 50n^2 + 100000) is O(n^3)
+	2. O((n + 30)*(n + 5)) is O(n^2)
+
+
+- It is important to remember that when we discuss BIG O we are talking about the worst case scenario, sometimes code has a best case scenario that is constant time but if the worst case scenario is quadratic, that is what we care about
+
+7a.public static boolean contains(int[] haystack, int needle) {
+
+    // does the haystack contain the needle?
+    for (int n : haystack) {
+        if (n == needle) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+7b. This example could be O(1) if haystack is the first value, but it can be O(n) if needle isnt in the haystack or if its toward the end of the haystack. Never hurts to specify though the different worst case and best case during an interview though. For some algorithms we can make statements about the average case runtime
+
+- Sometimes we want to optimize for using less memory instead of (or alongside) using less time. Talking about memory cost, otherwise known as "space complexity" is very similar to talking about time cost. We simply look at the total size relative to the size of the input, of any new variables we are allocating
+
+
+
+- This method takes O(1) space (we use a fixed number of variables):
+
+  public static void sayHiNTimes(int n) {
+    for (int i = 0; i < n; i++) {
+        System.out.println("hi");
+    }
+}
+
+- This method takes This method takes O(1) space (we use a fixed number of variables):
+
+  public static void sayHiNTimes(int n) {
+    for (int i = 0; i < n; i++) {
+        System.out.println("hi");
+    }
+}
+
+- This method takes O(n) space (the size of hiArray scales with the size of the input):
+
+  public static String[] arrayOfHiNTimes(int n) {
+    String[] hiArray = new String[n];
+    for (int i = 0; i < n; i++) {
+        hiArray[i] = "hi";
+    }
+    return hiArray;
+}
+
+- Usually when we talk about space complexity, we're talking about additional space, so we don't include space taken up by the inputs. For example, this method takes constant space even though the input has nn items:
+
+  public static int getLargestItem(int[] items) {
+    int largest = Integer.MIN_VALUE;
+    for (int item : items) {
+        if (item > largest) {
+            largest = item;
+        }
+    }
+    return largest;
+}
+
+- Sometimes there's a tradeoff between saving time and saving space, so you have to decide which one you're optimizing for 
+
+
+- Make sure you make a habit of thinking about space and time complexity of algorithms as you design them, it will become second nature allowing you to see potential performance issues right away.
+
+- Big O ignores constants, but sometimes the constants matter. If we have a script that takes 5 hours to run, an optimization that divides the runtime by 5 might not affect big O, but it still saves you 4 hours of waiting.
+
+-  A great engineer (startup or otherwise) knows how to strike the right balance between runtime, space, implementation time, maintainability, and readability.
