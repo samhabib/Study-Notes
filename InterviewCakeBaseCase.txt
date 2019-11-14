@@ -1,0 +1,21 @@
+INTERVIEW CAKE BASE CASE
+———————————————
+- The Base Case tells a recursive method when to stop, otherwise they would go on endlessly.
+
+- For example if we had a method like this
+
+Public static int sum1ToN(int n) {
+	return n + sum1ToN(n-1);
+}
+
+- If  we put 3 as our input for n, it would take 3 then add 2 then add 1 then add 0 then add -1, all the way till our program eventually crashes. If we want our recursive method to stop, we have to put a form of conditional that lets the recursive method know it needs to stop.  For this scenario we want to stop adding when n gets to 1, so we would say that our base case is n<= 1.
+
+Public static int sum1ToN(int n) {
+
+//base case;
+	If(n==1){
+		return 1;
+	}
+	return n+ sum1ToN(n-1);
+
+}
