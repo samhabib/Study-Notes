@@ -1,0 +1,19 @@
+INTERVIEW CAKE Array Slicing
+———————————————
+
+- Array slicing involves taking a subset from an array and allocating a new array with those elements
+
+- In Java you can create a new array of the elements in myArray from startIndex to endIndex (exclusive) like this:
+
+Arrays.copyOfRange(myArray, startIndex, endIndex);
+
+- Pretty convenient right? But there is something you should be aware of. There is a hidden time and space cost here,  while slicing might seem like you are just grabbing elements, it is actually doing two things:
+	
+	1. Allocating memory for a new array 							O(n) Space complexity
+	2. Copying the elements from the original array to the new array	O(n) runtime
+
+- These two steps are taking O(n) space and time complexity where n is the resulting arrays size
+
+- Its a bit easier to realize it when you are saving the result as a variable
+
+int[ ] tailOfArray = Arrays.copyOfRange(myArray, 1, myArray.length);
