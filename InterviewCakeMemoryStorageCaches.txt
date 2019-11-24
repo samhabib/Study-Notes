@@ -1,0 +1,43 @@
+  
+INTERVIEW CAKE Memory, Storage, Processors, Caches Coding Interviews
+———————————————
+
+- When a computer is running code, it needs to keep track of variables (numbers, strings, arrays, etc). Variables are stored in Random Access Memmory (RAM) also known as working memory. RAM is not where apps and mp3s get stored, in addition to working memory, computers have Storage or Persistent Storage. While memory is where we keep the variables our methods allocate as they run code for us, sotrage is where we keep files like videos and mp3s and word docs and even executable programs or apps.
+
+- Memory is faster than storage but has less space, while storage is slower but has a lot more room. Modern laptops might have around 500GB of storage but only 16 GB of RAM
+
+-Think of RAM like a database table with 1 column and thousands of numbered rows. Each number for a row is called its address. Each value holds 8 bits and a bit is a tiny switch that can either be on or off which is represented as a 1 or a 0
+
+Ex.
+0[01100110]
+1[10010110]
+2[01001011]
+3[10101001]
+4[11010101]
+5[00101010]
+6[10101010]
+
+-8 bits is called a byte so each row is one byte of storage.
+
+- We also have a processor that does all of the work inside our computer, but that processor is connected to a memory controller which in turn is connected to the RAM address table. The memory controller does the actual reading and writing to and from RAM, it has a direct connection to each shelf of RAM.
+
+- The direct connection is important because it means we can access address 0 and then immediately access address 1000000 without having to climb down the massive list of RAM. That is why we call RAM Random Access Memory because we can access the bits at any random address in memory right away. 
+
+- Spinning hard drives dont have the "Random Access" power because there is no direct connection to each byte on the disc. What happens is there is a reader called a Head that moves along the surface of the spinning storage disk that is reading bytes as is it passes areas of the disk. Reading bytes taht are far apart from where the head is takes longer because we have to wait for the head to move to that part of the disc.
+
+- Even though memory controllers can jump between far apart memory addresses quickly, programs tend to access memory that is nearby. So computers are tuned to get an extra speed boost when reading memory addresses that are close to each other using caches.
+
+- The processor has a series of caches where it stores a copy of things recently read from RAM, the caches are much faster to read from than RAM so the processor saves time whenever it can read something from cache instead of going out to RAM.
+
+- When the processor asks for the content of a given memory address, the memory controller also sends the contents of a hanful of nearby memory addresses and the processor puts all of it in the cache. So if the processor asks for the content of 961, then 962 963 and 964 might also come bock so if it decides to follow up and do a call for 964 it will come back much faster than the initial search.
+
+- But if the processor asks to read 592 then 201 then 703, the cache wont help because the memory controller will have to reach out to the RAM each time to read.
+
+
+
+
+
+
+
+
+
