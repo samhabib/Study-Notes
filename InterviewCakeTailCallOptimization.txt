@@ -1,0 +1,6 @@
+INTERVIEW CAKE Tail Call Optimization
+———————————————
+
+- Some compilers and interpreters will do what is called Tail Call Optimization or TCO, where they will optimize certain recursive functions to avoid building a tall call stack
+
+- Python and Java do not have TCO. Programming languages like Scheme gurantee TCO but it is usually safe to assume your language does not have TCO and build your code with Tall Call stacks in mind.
