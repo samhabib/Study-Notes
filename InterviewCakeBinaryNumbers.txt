@@ -1,0 +1,67 @@
+INTERVIEW CAKE Tail Call Optimization
+———————————————
+
+- What is binary numbers? Well bits use binary numbers as they exist in a range of 0 to 1 which means they are a base of 2. Decimal numbers which are numbers as most people know them normally are of base 10 because they range from 0 to 9
+
+- To understand binary lets take a look how decimal numbers work and then we can convert that knowledge into how binary numbers work. Lets say we are looking at the number 101 in decimal, we know that this number means that we have 1 hundred + 0 ten + 1 one which gives us our total value of 101 units. Another way to look at this is like below:
+
+Ex. 
+10^0 = 1
+10^1 = 10
+10^2 = 100
+10^3 = 1000
+
+- Notice how the places in base 10 (ones place, tens place, hundreds place, etc.) are sequential powers of 10. The places in binary (base 2) are sequential powers of 2:
+
+Ex.
+2^0 = 1
+2^1 = 2
+2^2 = 4
+2^3 = 8
+
+- So lets try to see what 101 would look like in binary as opposed to decimal, we would have 1 four + 0 two + 1 one which would equal 5 in decimal as opposed to 101 in decimal.
+
+- So far we have been discussing unsigned integers, which are non negative whole numbers, there are other types of values that we can store including but not limited to:
+
+1. Fractions - Store two numbers for the numerator and the denominator 
+2. Decimals - Store two numbers for the number with the decimal point taken away and the position where there devimal point goes (how many digits over from the leftmost digit)
+3. Negative Numbers - Reserve the leftmost bit for expressing the sign of the number where 0 is positive and 1 is negative
+
+- We've talked about base 10 and base 2...you may have also seen base 16, also called hexadecimal or hex. In hex, our possible values for each digit are 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, and f. Hex numbers are often prefixed with "0x" or "#". In CSS, colors are sometimes expressed in hex. 
+
+
+Fixed Width Integers
+———————————————
+
+- How many numbers can we store given "N" bits? Well lets take a look at a simple example. How many numbers can we store if we have 1 bit? We can store 0 and 1 which are two numbers. What about with 2 bits? 00,01,10,11 which are 4 seperate numbers
+
+- In general with N bits we can store 2^N different possible numbers!
+
+- If we have an 8-bit unsigned integer 255 (1111 1111 in binary) and we try to add to it what do we get? Well normally we would get 256 and we would have to add a bit to represent it as 1 0000 0000, but if we have only allocated 8 bits for this number then we would get what is known as an Integer Overflow. At best we might get an error, at worst our computer might compute the correct answer but drop the 9th bit and give us 0000 0000 which is 0 instead of 256 (Thanks Java)
+
+- In Java, if we go 1 value over Integer.MAX_VALUE (2147483647), it will automatically wrap you around to the Integer.MIN_VALUE (-2147483648) which is still known as Overflow. Underflow is when you subtract 1 from the Integer.MIN_VALUE and it wraps you around to the highest value.
+
+- In Java, if working with floats, overflow results in infinity while underflow results in 0
+
+- Since the 256 possibilities we get from 1 byte is pretty limiting, we usually use 4 or 8 bytes (32 or 64 bits) for storing integers. 32 bit integers give us more than 4 billion options, while 64 bit integers give us more than 10 billion BILLION
+
+- Have you ever noticed how in some languages like Java, sometimes numbers are Integers and sometimes they are longs? The difference is in the number of bits, in Java Integers are 32 bits and Longs are 64 bits.
+
+- If you are ever creating a table in SQL, when you specify that a column will hold integers, you have to specify how many bytes.
+
+1. tinyint is 1 byte
+2. smallint is 2 bytes
+3. int is 4 bytes
+4. bigint is 8 byte
+
+- When is 32 bits not enough? When you're counting views on a viral video. YouTube famously ran into trouble when the Gangnam Style video hit over 2^31 views, forcing them to upgrade their view counts from 32-bit to 64-bit signed integers.
+
+- Most integers are Fixed Width (also known as Fixed Length) which means the number of bits they take up doesn't change. It is usually safe to assume an integer is fixed-width unless told otherwise, variable size numbers exist but are rare.
+
+- If we have a 64-bit fixed length integer, it doesn't matter if its 0 or 193,457, it will still take up the same amount of space in RAM which is 64 bits.
+
+- In Big O notation we say fixed width integers take up a constant space or O(1) space and because they have a constant number of bits, most simple  operations on fixed width integers (addition, subtraction, multiplication, division) take constant O(1) time.
+
+- So fixed width integers are very space and time efficient, but that comes with the cost of their values being limited to 2^n possibilities where n is the number of bits.
+
+- This is a trend in Data structures we will see, to get a nice property, it will usually come at the cost of something else.
